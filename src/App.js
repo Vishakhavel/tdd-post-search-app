@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from './logo.svg'
+import './App.css'
+import Posts from './components/Posts'
+import axios from 'axios'
+import React, { useState, useEffect } from 'react'
+import { Fragment } from 'react'
+const App = () => {
+  const [error, setError] = useState(false)
+  const [post, setPost] = useState()
 
-function App() {
+  const getPosts = (data) => {
+    const postID = data
+    const url = 'https://jsonplaceholder.typicode.com/posts/' + data
+
+    return axios
+      .get(url)
+      .then((res) => {
+        console.log(res.data)
+        setPost(res.data)
+        console.log(post)
+      })
+      .catch((err) => console.log(err))
+  }
+
+  useEffect(() => {
+    getPosts()
+  }, [])
+
+  // posts is going to be an array of objects returned from the API call.
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Fragment>
+      <h1>Welcome!</h1>
+      <Posts data={post} makeAPICall={getPosts} />
+    </Fragment>
+  )
 }
 
-export default App;
+export default App
