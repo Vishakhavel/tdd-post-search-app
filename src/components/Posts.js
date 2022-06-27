@@ -30,7 +30,7 @@ const Posts = (props) => {
         <button type='submit'>submit</button>
       </form>
 
-      <div>
+      {/* <div>
         <ul>
           {props.data.map((post) => (
             <li key={post.id}>
@@ -39,7 +39,7 @@ const Posts = (props) => {
             </li>
           ))}
         </ul>
-      </div>
+      </div> */}
     </Fragment>
   )
 }
