@@ -6,6 +6,7 @@ const Posts = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault()
     props.makeAPICall(postID)
+    setPostID('')
   }
 
   const handleChange = (event) => {
