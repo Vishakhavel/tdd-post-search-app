@@ -1,7 +1,6 @@
-import logo from './logo.svg'
 import './App.css'
 import Posts from './components/Posts'
-import axios from 'axios'
+import Card from './components/Card'
 import React, { useState, useEffect } from 'react'
 import { Fragment } from 'react'
 const App = () => {
@@ -16,29 +15,21 @@ const App = () => {
     },
   ])
 
-  const getPosts = (data) => {
+  async function getPosts(data) {
     const postID = data
+    // console.log(postID)
     const url = 'https://jsonplaceholder.typicode.com/posts/' + data
+    const repsonse = await fetch(url)
+    const responseDataJSON = await repsonse.json()
+    console.log(responseDataJSON)
 
-    return axios
-      .get(url)
-      .then((res) => {
-        console.log(res.data)
-        setPost(res.data)
-        console.log(post)
-      })
-      .catch((err) => console.log(err))
+    setPost(responseDataJSON)
   }
 
-  useEffect(() => {
-    getPosts()
-  }, [])
-
-  // posts is going to be an array of objects returned from the API call.
   return (
     <Fragment>
-      <h1>Welcome!</h1>
-      <Posts data={post} makeAPICall={getPosts} />
+      <Posts postData={post} makeAPICall={getPosts} />
+      <Card postData={post} />
     </Fragment>
   )
 }
