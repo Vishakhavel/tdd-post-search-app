@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react'
 import { Fragment } from 'react'
 const App = () => {
   const [error, setError] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [post, setPost] = useState([
     {
       userId: 1,
@@ -29,7 +30,8 @@ const App = () => {
   return (
     <Fragment>
       <Posts postData={post} makeAPICall={getPosts} />
-      <Card postData={post} />
+      {!isLoading && <Card postData={post} />}
+      {isLoading && <p> Loading.... </p>}
     </Fragment>
   )
 }
